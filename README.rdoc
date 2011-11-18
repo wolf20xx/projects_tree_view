@@ -7,10 +7,13 @@ propagates the tree view to the project show page's subprojects list.
 
 * Chris Peterson
 <<<<<<< HEAD
+<<<<<<< HEAD
 * Edits by: Steven Verbeek
 =======
 * Small Edits By: Steven Verbeek
 >>>>>>> Added myself to the authors list
+=======
+>>>>>>> parent of b7066b4... Update README.rdoc
 
 ==Changelog
 
@@ -26,12 +29,11 @@ This plugin is compatible with Redmine trunk only!
 
 ==Obtaining 
 
-<i>URL of the GitHub repository: http://github.com/dubcanada/projects_tree_view/tree/master</i>
-<i>URL of the original GitHub repository: http://github.com/MischaTheEvil/projects_tree_view/tree/master</i>
+<i>URL of the GitHub repository: http://github.com/MischaTheEvil/projects_tree_view/tree/master</i>
 
 The source of this plugin can be "cloned" from the GitHub-repo using:
 
-<tt>$ cd {RAILS_ROOT}/vendor/plugins && git clone git://github.com/dubcanada/projects_tree_view.git</tt>
+<tt>$ cd {RAILS_ROOT}/vendor/plugins && git clone git://github.com/MischaTheEvil/projects_tree_view.git</tt>
 
 ==Installation
 
