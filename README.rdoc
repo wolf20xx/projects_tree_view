@@ -6,14 +6,6 @@ propagates the tree view to the project show page's subprojects list.
 ==Author
 
 * Chris Peterson
-<<<<<<< HEAD
-<<<<<<< HEAD
-* Edits by: Steven Verbeek
-=======
-* Small Edits By: Steven Verbeek
->>>>>>> Added myself to the authors list
-=======
->>>>>>> parent of b7066b4... Update README.rdoc
 
 ==Changelog
 
