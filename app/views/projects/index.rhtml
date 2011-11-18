@@ -1,11 +1,11 @@
 <div class="contextual">
     <% if authorize_global_implemented %>
-      <%= link_to(l(:label_project_new), {:controller => 'projects', :action => 'add'}, :class => 'icon icon-add') + ' |' if User.current.allowed_to?(:add_project, nil, :global => true) %>
+      <%= link_to(l(:label_project_new), {:controller => 'projects', :action => 'new'}, :class => 'icon icon-add') + ' |' if User.current.allowed_to?(:add_project, nil, :global => true) %>
     <% else %>
-      <%= link_to(l(:label_project_new), {:controller => 'projects', :action => 'add'}, :class => 'icon icon-add') + ' |' if User.current.admin? %>
+      <%= link_to(l(:label_project_new), {:controller => 'projects', :action => 'new'}, :class => 'icon icon-add') + ' |' if User.current.admin? %>
     <% end %>
     <%= link_to l(:label_issue_view_all), { :controller => 'issues' } %> |
-    <%= link_to l(:label_overall_activity), { :controller => 'projects', :action => 'activity' }%>
+    <%= link_to l(:label_overall_activity), { :controller => 'activity' }%>
 </div>
 
 <h2><%=l(:label_project_plural)%></h2>
