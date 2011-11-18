@@ -6,7 +6,11 @@ propagates the tree view to the project show page's subprojects list.
 ==Author
 
 * Chris Peterson
+<<<<<<< HEAD
 * Edits by: Steven Verbeek
+=======
+* Small Edits By: Steven Verbeek
+>>>>>>> Added myself to the authors list
 
 ==Changelog
 
