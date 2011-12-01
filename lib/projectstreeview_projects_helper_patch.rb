@@ -30,3 +30,4 @@ module ProjectstreeviewProjectsHelperPatch
 
   end # Close the module ProjectstreeviewProjectsHelperPatch::InstanceMethods
 end # Close the module ProjectstreeviewProjectsHelperPatch
+ProjectsHelper.send(:include, ProjectstreeviewProjectsHelperPatch)

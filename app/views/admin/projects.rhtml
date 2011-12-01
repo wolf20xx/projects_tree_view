@@ -1,0 +1,92 @@
+<div class="contextual">
+<%= link_to l(:label_project_new), {:controller => 'projects', :action => 'new'}, :class => 'icon icon-add' %>
+</div>
+
+<h2><%=l(:label_project_plural)%></h2>
+
+<% form_tag({}, :method => :get) do %>
+<fieldset><legend><%= l(:label_filter_plural) %></legend>
+<label><%= l(:field_status) %> :</label>
+<%= select_tag 'status', project_status_options_for_select(@status), :class => "small", :onchange => "this.form.submit(); return false;"  %>
+<label><%= l(:label_project) %>:</label>
+<%= text_field_tag 'name', params[:name], :size => 30 %>
+<%= submit_tag l(:button_apply), :class => "small", :name => nil %>
+</fieldset>
+<% end %>
+&nbsp;
+
+<div class="autoscroll">
+<table class="list">
+  <thead><tr>
+	<th><%=l(:label_project)%></th>
+	<th><%=l(:field_description)%></th>
+	<th><%=l(:field_is_public)%></th>
+	<th><%=l(:field_created_on)%></th>
+  <th></th>
+  </tr></thead>
+  <tbody>
+<% ancestors = [] %>
+<% for project in @projects %>
+  <% rowid = "" %>
+  <% classes = "" %>
+  <% spanicon = "" %>
+  <% openonclick = "" %>
+  <% showchildren = false %>
+  <% project.children.each do |child| %>
+     <% if @projects.include?(child) %>
+       <% showchildren = true %>
+       <% break %>
+     <% end %>
+  <% end %>
+  <% if(!project.children.empty? && showchildren) %>
+    <% classes += " closed parent " + cycle("odd", "even") %>
+    <% rowid = "id=\""+project.id.to_s+"span\"" %>
+    <% openonclick = "onclick=\"showHide('"+project.id.to_s+"','"+project.id.to_s+"span')\""%>
+    <% spanicon = "<span " + openonclick + " class=\"expander\">&nbsp  </span>" %>
+  <% else %>
+    <% classes += " child" %>
+  <% end %>
+  <% if(project.parent_id == nil) %>
+    <% ancestors.clear %>
+    <% ancestors << project.id %>	
+  <% else %>
+    <% while (ancestors.any? && !(project.parent_id == ancestors.last)) %>
+    <% ancestors.pop %>
+  <% end %>
+  <% classes += " hide" %>
+  <% if( !(ancestors.detect {|pid| pid == project.parent_id })) %>
+    <% prvclasses = "closed show parent " + cycle("odd", "even") %>
+    <% ancestors.each do |pid| %>
+      <% prvclasses += " " + pid.to_s %>
+    <% end %>
+    <% openonclick = "onclick=\"showHide('"+project.parent_id.to_s+"','"+project.parent_id.to_s+"span')\"" %>
+    <tr class="<%= prvclasses %>" id="<%= project.parent_id.to_s + "span" %>" >
+      <td class="name" ><%= "<span style=\"padding-left: " + (2*(ancestors.length-1)).to_s + "em;\"></span>" %><%="<span " + openonclick + " class=\"expander\" >&nbsp </span>" %><%= h("<Private Project>") %><span <%= openonclick %> class="empty">&nbsp</span></td>
+      <td <%= openonclick %> >Project is private. </td>
+      </span>
+    </tr>
+    <% ancestors << project.parent_id %>
+    <% end %>
+    <% ancestors.each do |pid| %>
+      <% classes += " " + pid.to_s %>
+    <% end %>
+    <% ancestors << project.id %>
+  <% end %> 
+  <tr class="<%= classes %>" <%= rowid %> >
+        <td class="name"><%= "<span style=\"padding-left: " + (2*(ancestors.length-1)).to_s + "em;\"></span>" %><%= spanicon %><%= project.active? ? link_to(h(project.name), {:controller => 'projects', :action => 'show', :id => project}, :class => "project") : h(project.name) %></td>
+        <td <%= openonclick %> ><%= textilizable project.short_description, :project => project %></td>
+	<td align="center"><%= image_tag 'true.png' if project.is_public? %></td>
+	<td align="center"><%= format_date(project.created_on) %></td>
+  <td class="buttons">
+    <%= link_to(l(:button_archive), { :controller => 'projects', :action => 'archive', :id => project, :status => params[:status] }, :confirm => l(:text_are_you_sure), :method => :post, :class => 'icon icon-lock') if project.active? %>
+    <%= link_to(l(:button_unarchive), { :controller => 'projects', :action => 'unarchive', :id => project, :status => params[:status] }, :method => :post, :class => 'icon icon-unlock') if !project.active? && (project.parent.nil? || project.parent.active?) %>
+    <%= link_to(l(:button_copy), { :controller => 'projects', :action => 'copy', :id => project }, :class => 'icon icon-copy') %>
+    <%= link_to(l(:button_delete), project_destroy_confirm_path(project), :class => 'icon icon-del') %>
+  </td>
+  </tr>
+<% end %>
+  </tbody>
+</table>
+</div>
+
+<% html_title(l(:label_project_plural)) -%>

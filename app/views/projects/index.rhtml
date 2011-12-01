@@ -1,11 +1,15 @@
+<% content_for :header_tags do %>
+    <%= auto_discovery_link_tag(:atom, {:action => 'index', :format => 'atom', :key => User.current.rss_key}) %>
+<% end %>
 <div class="contextual">
     <% if authorize_global_implemented %>
       <%= link_to(l(:label_project_new), {:controller => 'projects', :action => 'new'}, :class => 'icon icon-add') + ' |' if User.current.allowed_to?(:add_project, nil, :global => true) %>
     <% else %>
       <%= link_to(l(:label_project_new), {:controller => 'projects', :action => 'new'}, :class => 'icon icon-add') + ' |' if User.current.admin? %>
     <% end %>
-    <%= link_to l(:label_issue_view_all), { :controller => 'issues' } %> |
-    <%= link_to l(:label_overall_activity), { :controller => 'activity' }%>
+    <%= link_to(l(:label_issue_view_all), { :controller => 'issues' }) + ' |' if User.current.allowed_to?(:view_issues, nil, :global => true) %>
+    <%= link_to(l(:label_overall_spent_time), { :controller => 'time_entries' }) + ' |' if User.current.allowed_to?(:view_time_entries, nil, :global => true) %>
+    <%= link_to l(:label_overall_activity), { :controller => 'activities', :action => 'index' }%>
 </div>
 
 <h2><%=l(:label_project_plural)%></h2>
@@ -24,7 +28,14 @@
 			<% classes = "" %>
 			<% spanicon = "" %>
 			<% openonclick = "" %>
-			<% if(!project.children.empty?) %>
+			<% showchildren = false %>
+			<% project.children.each do |child| %>
+			  <% if @projects.include?(child) %>
+			    <% showchildren = true %>
+			    <% break %>
+  			  <% end %>
+  			<% end %>
+			<% if(!project.children.empty? && showchildren) %>
 				<% classes += " closed parent " + cycle("odd", "even") %>
 				<% rowid = "id=\""+project.id.to_s+"span\"" %>
 				<% openonclick = "onclick=\"showHide('"+project.id.to_s+"','"+project.id.to_s+"span')\""%>
@@ -65,6 +76,9 @@
 		<% end %>
 	</tbody>
 </table>
+
+<a href="#" id="expand_all">Expand All</a>
+
 
 <% if User.current.logged? %>
 <p style="text-align:right;">

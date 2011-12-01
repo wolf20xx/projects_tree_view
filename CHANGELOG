@@ -1,3 +1,10 @@
+0.0.4 (2010-06-23):
+    * Sync with Redmine 0.9.4
+    * Added plugin functionality to admin/projects page
+    * Fix problem with projects without active children
+    * Deleted unuseful plugin-skeleton files
+    * added js exapnd all button
+    * Fixed missing spent time link
 0.0.3 (2009-08-02):
     * Improved documentation and licensing
     * Updated the core-overriding views (required compatibility-helpers, see below)

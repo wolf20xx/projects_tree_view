@@ -1,5 +1,14 @@
 /* Function to allow the projects to show up as a tree */
 
+	Event.observe(window, 'load', function() {
+            if ($('expand_all')) {
+		$('expand_all').observe('click', function() {
+			$$('table.list tr').each(function(e) { e.addClassName('open'); e.removeClassName('hide'); });
+		});
+            }
+	});
+
+
 function showHide(EL,PM) 
 {
 	var els = document.getElementsByTagName('tr');
