@@ -1,3 +1,5 @@
 en:
   # English strings go here
-  my_label: "My label"
+
+  field_versions: "Versions"
+  field_go_to: Go to module
