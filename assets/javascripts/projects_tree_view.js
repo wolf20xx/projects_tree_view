@@ -54,6 +54,7 @@ function showHide(EL,PM)
 		  }
 		  else
 		  {		
+				/* classid test function is buggy and matches incorrect ids 5 matches 50. */
 				if((spanid.toString() != PM.toString()) &&
 				  (classid.test(els[i].className)))
 				{

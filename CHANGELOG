@@ -1,3 +1,6 @@
+0.0.5 (2011-01-23):
+    * added js exapnd all button
+    * Fixed missing spent time link
 0.0.4 (2010-06-23):
     * Sync with Redmine 0.9.4
     * Added plugin functionality to admin/projects page
