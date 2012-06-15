@@ -40,10 +40,10 @@
      <% end %>
   <% end %>
   <% if(!project.children.empty? && showchildren) %>
-    <% classes += " closed parent " + cycle("odd", "even") %>
-    <% rowid = "id=\""+project_id_lsd+"span\"" %>
-    <% openonclick = "onclick=\"showHide('"+project_id_lsd+"','"+project_id_lsd+"span')\""%>
-    <% spanicon = "<span " + openonclick + " class=\"expander\">&nbsp  </span>" %>
+    <% classes += " closed parent " + cycle("odd", "even").html_safe %>
+    <% rowid = "id=\"".html_safe+project_id_lsd.html_safe+"span\"".html_safe %>
+    <% openonclick = "onclick=\"showHide('"+project_id_lsd+"','"+project_id_lsd+"span')\"".html_safe%>
+    <% spanicon = "<span " + openonclick + " class=\"expander\">&nbsp  </span>".html_safe %>
   <% else %>
     <% classes += " child" %>
   <% end %>
@@ -54,7 +54,7 @@
     <% while (ancestors.any? && !(project.parent_id == ancestors.last)) %>
     <% ancestors.pop %>
   <% end %>
-  <% classes += " hide" %>
+  <% classes += " hide".html_safe %>
   <% if( !(ancestors.detect {|pid| pid == project.parent_id })) %>
     <% prvclasses = "closed show parent " + cycle("odd", "even") %>
     <% ancestors.each do |pid| %>
@@ -75,7 +75,7 @@
     <% ancestors << project.id %>
   <% end %>
   <tr class="<%= classes %>" <%= rowid %> >
-        <td class="name"><%= "<span style=\"padding-left: " + (2*(ancestors.length-1)).to_s + "em;\"></span>" %><%= spanicon %><%= project.active? ? link_to(h(project.name), {:controller => 'projects', :action => 'show', :id => project}, :class => "project") : h(project.name) %></td>
+        <td class="name"><%= "<span style=\"padding-left: ".html_safe + (2*(ancestors.length-1)).to_s + "em;\"></span>".html_safe %><%= spanicon.html_safe %><%= project.active? ? link_to(h(project.name), {:controller => 'projects', :action => 'show', :id => project}, :class => "project") : h(project.name) %></td>
         <td <%= openonclick %> ><%= textilizable project.short_description, :project => project %></td>
 	<td align="center"><%= image_tag 'true.png' if project.is_public? %></td>
 	<td align="center"><%= format_date(project.created_on) %></td>
