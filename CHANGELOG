@@ -1,3 +1,5 @@
+0.0.7 (2012-06-16):
+	* UI updated to prevent the continual need for html_safe declarations
 0.0.6 (2012-05-30):
     * patched to work with redmine 2.0
     * UI updated to enforce breakline properly utilised
