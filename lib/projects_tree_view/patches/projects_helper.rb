@@ -35,7 +35,7 @@ module ProjectsTreeView
             s << content_tag(:div) {
               "Issues: ".html_safe +
               link_to("#{open_issues} open", :controller => 'issues', :action => 'index', :project_id => project, :set_filter => 1) +
-              content_tag(:small, "#{project.issues.count} total")
+              '&nbsp;'.html_safe + content_tag(:small, "#{project.issues.count} total")
             }
             s << progress_bar(issues_closed_percent, :width => '30em', :legend => '%0.0f%' % issues_closed_percent)
           end
@@ -54,9 +54,9 @@ module ProjectsTreeView
                         "&nbsp;/&nbsp;".html_safe +
                         link_to_if(version.closed_issues_count > 0, l(:label_x_closed_issues_abbr, :count => version.closed_issues_count), :controller => 'issues', :action => 'index', :project_id => version.project, :status_id => 'c', :fixed_version_id => version, :set_filter => 1)
                       } +
-                      due_date_distance_in_words(version.effective_date) if version.effective_date
+                      ' '.html_safe + due_date_distance_in_words(version.effective_date) if version.effective_date
                     } +
-                    content_tag(:br) +
+#                    content_tag(:br) +
                     progress_bar([version.closed_pourcent, version.completed_pourcent], :width => '30em', :legend => ('%0.0f%' % version.completed_pourcent))
                   )
                 end
@@ -96,4 +96,4 @@ module ProjectsTreeView
   end # Close the module ProjectsTreeView::Patches
 end # Close the module ProjectsTreeView
 
-ProjectsHelper.send(:include, ProjectstreeviewProjectsHelperPatch)
+ProjectsHelper.send(:include, ProjectsTreeView::Patches::ProjectsHelper)

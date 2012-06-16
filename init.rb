@@ -1,7 +1,7 @@
 require 'redmine'
 
 # Patches to the Redmine core.
-require 'projects_tree_vew'
+require 'projects_tree_view'
 
 Redmine::Plugin.register :projects_tree_view do
   name 'Projects Tree View plugin'
