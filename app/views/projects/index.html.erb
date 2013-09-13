@@ -14,10 +14,10 @@
     <thead>
         <tr>
             <th><%=l(:label_project)%></th>
+	    <th><%=l(:field_created_on)%></th>
             <th><%=l(:field_description)%></th>
-            <th><%=l(:field_go_to)%></th>
-            <th><%=l(:field_versions)%></th>
-            <th><%=l(:field_created_on)%></th>
+	    <!-- <th><%=l(:field_go_to)%></th> -->
+	    <!-- <th><%=l(:field_versions)%></th> -->
         </tr>
     </thead>
     <tbody>
@@ -83,10 +83,10 @@
                               h(project.name) %>
                   <%= content_tag :span, '&nbsp;'.html_safe, :onclick => openonclick, :class => "empty #{User.current.member_of?(project) ? 'my-project' : nil}"%>
                 </td>
-                <%= content_tag :td, :onclick => openonclick do -%><%= textilizable project.short_description.gsub(/\!.+\!/,""), :project => project %><% end -%>
-                <td><%= favorite_project_modules_links(project) %></td>
-                <td><%= render_project_progress(project) %></td>
                 <td align="center"><%= format_date(project.created_on) %></td>
+                <%= content_tag :td, :onclick => openonclick do -%><%= textilizable project.short_description.gsub(/\!.+\!/,""), :project => project %><% end -%>
+		<!--                <td><%= favorite_project_modules_links(project) %></td> -->
+		<!--                <td><%= render_project_progress(project) %></td>-->
             <% end -%>
         <% end %>
     </tbody>
